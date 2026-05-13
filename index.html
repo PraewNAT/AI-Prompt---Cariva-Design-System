@@ -170,7 +170,19 @@
     /* ── TOC ── */
     .toc {
       max-width: 800px;
-      margin: 0 auto 32px;
+      margin: 28px auto 32px;
+    }
+
+    .toc-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .toc-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
@@ -734,10 +746,11 @@ Summarize as:
       const container = document.getElementById("cards");
       const toc = document.getElementById("toc");
       container.innerHTML = "";
-      toc.innerHTML = "";
+      toc.innerHTML = `<div class="toc-label">${lang === "th" ? "สารบัญ" : "Contents"}</div><div class="toc-tags" id="tocTags"></div>`;
 
       document.getElementById("headerDesc").textContent = ui[lang].desc;
 
+      const tocTags = document.getElementById("tocTags");
       prompts.forEach((p) => {
         const data = p[lang];
 
@@ -749,7 +762,7 @@ Summarize as:
           e.preventDefault();
           document.getElementById(`prompt-${p.number}`).scrollIntoView({ behavior: "smooth", block: "start" });
         });
-        toc.appendChild(tag);
+        tocTags.appendChild(tag);
 
         const card = document.createElement("div");
         card.className = "card";
